@@ -1,0 +1,274 @@
+\documentclass[italian,a4paper,12pt,oneside]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{forest}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{1}
+\usepackage{float}
+\usepackage{babel}
+\usepackage{microtype} % migliora espansione dei font. Suggerito su ``L'arte di scrivere in LaTeX, pag. 45''
+\usepackage{indentfirst} % indentazione anche su primo paragrafo.  Suggerito su ``L'arte di scrivere in LaTeX, pag. 45''
+
+\title{Appunti per lezione sicurezza informatica\\
+Revisione 0.01}
+\author{Germano Massullo - germano.massullo@gmail.com}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+Linee guida (ad uso personale) per discorso della lezione ``pillole di sicurezza
+informatica'', rivolto ad un pubblico generalista, dove formalismi e tecnicismi
+sono stati eliminati per favorire al massimo l'apprendimento degli argomenti
+illustrati.
+\textbf{Il presente documento non è da considerarsi una trascrizione del ``parlato''
+della presentazione}.
+
+
+
+\chapter{Sicurezza dei dispositivi elettronici}
+I dispositivi elettronici ormai pervadono la nostra quotidianetà e la influenzano
+in modo diretto. Internet non è più quel luogo isolato che non influenzava in alcun
+modo il mondo reale, ora ciò che accade sulla rete influisce anche sulle nostre vite.
+Le tecnologie hanno accorciato le distanze tra le persone, semplificato
+le nostre attività di routine. Il rovescio della medaglia è che hanno assottigliato
+la sfera della nostra privacy rendendoci più vulnerabili ad abusi. È perciò
+importante fare un uso consapevole di questi oggetti, ovvero essere informati
+sui potenziali rischi che si corrono ed occorre assicurarsi di avere il controllo esclusivo
+di questi dispositivi.
+
+\section{integrità dei dati}
+Spesso le persone pongono una illimitata fiducia circa l'affidabilità dei
+propri dispositivi elettronici.
+Il tempo medio prima di un guasto, in inglese Mean Time Before Failure, è il
+lasso di tempo previsto dal produttore prima dell'occorrenza di un malfunzionamento del
+dispositivo. È una delle specifiche di progetto di ogni prodotto commercializzato.
+Se si è fortunati il prodotto non si romperà prima del MTBF previsto, in caso
+contrario si ricadrà nella seguente distribuzione di probabilità di rotture che
+ha la forma di una vasca da bagno. Qui, si può notare come i dispositivi
+siano soggetti ad un alto tasso di rotture durante i primi periodi della loro
+vita utile, poi il tasso di rotture diminuisce vertiginosamente, ed infine
+aumenta nuovamente verso il fine ciclo di vita del prodotto.
+\subsection{Backup}
+È pertanto importante predisporre dei backup periodici dei propri dati.
+Almeno due backup, e se possibile alloggiarli in posizioni diverse, così
+da mettersi al sicuro anche da eventuali furti in casa.
+Non utilizzare mai penne USB in quanto sono i prodotti elettronici più
+inaffidabili a causa dell'impiego di materiali di infima qualità.
+
+\section{distruzione dischi}
+Quando cancellate un file, il computer marcherà tale file come cancellato, non
+lo cancellerà veramente finché non vi scriverà dei nuovi dati sopra quelli vecchi
+Se volete veramente cancellare i dati in maniera definitiva, utilizzate i
+seguenti software.
+
+\section{Il mio computer è lento}
+Spesso le persone si lamentano, affermando che il loro computer è molto lento. Ai
+giorni d'oggi, i computer hanno una potenza che eccede le esigenze di
+uso quotidiano, pertanto spesso e volentieri ogni pesante rallentamento
+durante il normale utilizzo, è indice che il computer è infetto da un qualche
+tipo di malware. Per comodità oggi chiameremo con il termine ``virus'' ogni tipo
+di software installato da malintenzionati. Installare un antivirus su una
+macchina infetta non risolverà il problema: è come con i vaccini, non si può
+somministrare un vaccino ad una persona che presenta già una patologia, pertanto
+in parole povere: chi arriva prima vince.
+
+\subsection{Virus}
+Computer infetti, spesso costituiscono le cosiddette botnet. Esse servono a
+gruppi di malintenzionati per i più disparati utilizzi: occultare le proprie
+tracce per effettuare truffe online, mandare e-mail di spam, infettare altri
+computer, ecc. Dato che in caso di attacchi informatici provenienti da propri
+dispositivi, ci si ritroverà a doversi difendere in tribunale, è bene prevenire
+piuttosto che curare.
+
+\section{Buffer overflow}
+Questo è un processore, la cosiddetta CPU. È il dispositivo che all'interno
+di computer e cellulari svolge tutte le operazioni necessarie al funzionamento
+della macchina. Normalmente il processore lavora nella seguente maniera, ma a
+noi in questa occasione non interessa scendere a questo livello di dettaglio.
+
+Perchè è importante parlare del processore? 
+I processori operano gestendo celle
+di memoria finita. Quando un programmatore crea un programma, deve assegnare ad
+ogni routine una determinata area di memoria, a suo piacimento.
+Quando poi il programma userà quell'area di memoria, il programmatore dovrà
+assicurarsi che il programma non usi accidentalmente più memoria di quella
+assegnata. Un esempio pratico: quando effettuate una registrazione ad un
+sito web, generalmente vi viene detto che di inserire una password non più
+lunga di 20 caratteri. Quindi si presume che il programmatore abbia allocato
+un'area di memoria di 20 caratteri per gestire la vostra password. Che cosa
+potrebbe accadere inserendo una password più lunga di 20 caratteri?
+Se il programmatore ha fatto il suo dovere, sarà per voi impossibile inserire
+più di 20 caratteri. Se invece è stato pigro, la password che state inserendo
+forzerà l'area di memoria di 20 caratteri, dilagando nel programma. Immaginatelo
+come un cassone d'acqua riempito oltre l'orlo e che inizia a trasbordare liquido.
+
+Fino a qualche anno fa, generalmente i virus venivano attivati manualmente
+mediante l'attivazione accidentale da parte della vittima, di file eseguibili
+formato exe. Ora le tecniche di attacco si sono fatte più raffinate ed i virus
+si propagano sfruttando dei bachi presenti nei sistemi delle vittime, come
+quello accennato precedentemente.
+
+
+Nel modello di funzionamento da noi ipotizzato, non corrispondente alla realtà,
+i computer durante il loro funzionamento processano linee di codice così
+strutturate: istruzione macchina concatenata al contatore di riga.
+Il contatore di riga istruisce la macchina su quale riga di comando eseguire
+alla successiva passata. Assumiamo che il program counter sia un'area di memoria
+adiacente a quella che gestisce le righe dei comandi del programma. Inoltre
+esso viene aggiornato automaticamente dalla CPU.
+
+Immaginiamo di usare il seguente programma che gestisce le mele disponibili:
+all'inizio l'utente inserisce il numero di mele, che qui assumiamo sia zero.
+
+SEGUE DESCRIZIONE DEL CODICE DELLE SLIDE
+
+Assumiamo che un malintenzionato riesca ad infilare nel pezzo finale del
+programma, un pezzo di codice che distrugga il sistema. A noi non importa
+come ce l'abbia messo, in quanto il problema non è inserire un'istruzione malevola
+nella memoria, ma deviare il flusso di esecuzione del programma in maniera tale che
+il processore esegua tale istruzione.
+
+Dato che le dimensioni delle celle di memoria dedicate alla ricezione di istruzioni
+hanno una dimensione fissata, qualora un malintenzionato riesca a forzare tali celle
+facendo fuoriuscire del codice al di fuori di esse, probabilmente riuscirà
+ad intaccare l'integrità del contatore di riga, facendo eseguire al sistema
+delle righe di codice diverse da quelle che avrebbe dovuto eseguire.
+
+
+
+
+
+\section{Smart tv che hanno webcam in camera da letto}
+Le smart tv e tutti gli oggetti ``internet of things`` non subiranno alcun
+aggiornamento una volta che la casa produttrice ha deciso che i clienti
+debbano acquistarne una nuova versione. Ciò esporrà gli utilizzatori ad
+una serie di problemi di sicurezza. Dispositivi di questo tipo integrano
+webcam e microfoni, che sono una grave minaccia alla privacy soprattutto in luoghi
+intimi come le camere da letto.
+
+\section{Wi-Fi e smart home}
+Attualmente assistiamo ad una grande diffusione dei dispositivi per la domotica,
+le cosiddette smart home. Spesso e volentieri tali dispositivi sono collegati
+ad internet con una connessione Wi-Fi. Anche se la nostra connessione Wi-Fi
+è crittografata, non bisogna sentirsi completamente al sicuro.
+Una persona nel raggio di azione della vostra abitazione può vedere quanti
+e quali dispositivi sono connessi, vedere se effettuano traffico, e pertanto
+fare una stima delle persone presenti in casa, ed agire di conseguenza nel
+caso voglia commettere un furto. Inoltre, essendo possibile effettuare un
+''attacco di disconnessione'', immaginate l'effetto che esso potrebbe avere
+su un sistema di videosorveglianza. Per ovviare a questa minaccia basta munirsi
+di un impianto collegato con il cavo di rete.
+
+
+
+\chapter{Sicurezza nell'uso di internet}
+
+\section{crittografia asimmetrica}
+Quando vogliamo scambiare un file crittografato con un'altra persona, poi avremo
+il problema di come inviargli la chiave di decodifica.
+La crittografia asimmetrica sopperisce a questa necessità, in quanto ha origine
+durante la guerra fredda, dal bisogno di potersi scambiare chiavi di
+crittografia attraverso un canale di comunicazione non sicuro.
+Prima dell'avvento della crittografia asimmetrica, ad esempio nella II
+guerra mondiale, i sommergibili tedeschi partivano dalle basi con un libro
+di tutte le chiavi di crittografia da usare giorno per giorno con il
+dispositivo Enigma.
+
+Nella crittografia asimmetrica ognuno dei due soggetti
+coinvolti, possiede una chiave privata ed una chiave pubblica.
+La chiave pubblica viene generata dalla chiave privata attraverso operazioni matematiche.
+Le chiavi pubbliche vengono pubblicate su elenchi pubblici, in quanto non contengono informazioni
+sensibili. Affinché si possa essere sicuri che una chiave pubblica appartenga effettivamente ad una
+persona, si possono adottare varie strategie:
+\begin{itemize}
+ \item farsela firmare da una serie di testimoni che confermino la tua identità;
+ \item farsela firmare da un'autorità che certifica la tua identità
+\end{itemize}
+Una chiave pubblica non firmata ha lo stesso valore di una carta di identità
+fatta da noi stessi su un tovagliolo
+Quando Alice vuole mandare un messaggio crittografato a Bob, non userà la propria
+chiave di crittografia, bensì prende la chiave pubblica di Bob e la utilizza per
+crittografare il messaggio.
+Quando Bob riceverà il dato crittografato, egli per decodificare non userà la sua chiave pubblica,
+bensì la sua chiave privata. Per spiegarvi il motivi per il quale egli userà la sua chiave privata e
+non quella pubblica, dovremmo fare varie lezioni di matematica che qui non abbiamo tempo di fare.
+Inoltre Alice, per far sì che Bob sia sicuro che il messaggio sia stato
+effettivamente spedito da lei, firmerà il tutto con la sua chiave privata.
+Infine Bob andrà a vedere chi ha firmato la corrispondente chiave pubblica
+della chiave privata di Alice
+
+\section{Gestione password}
+\subsection{KeepassXC}
+KeepassXC è un programma che permette la generazione di password sicure
+ed il loro stoccaggio nella più completa sicurezza. Pensate ad esso come una cassaforte
+dove la combinazione è una unica password da voi scelta. Non dovrete più ricordare password
+di ogni account in vostro possesso, vi basterà fare copia ed incolla da KeepassXC.
+\subsection{Generazione password}
+Devono avere una lunghezza di almeno 12 caratteri e contenere solo caratteri
+casuali. Immaginate il gestore di password come una cassaforte, si dovrà solamente
+ricordare la combinazione, che nel nostro caso sarà una password.
+Per generare una password sicura il consiglio è prendere una frase di un libro
+che ci piace, e per ogni parola prenderne la lettera iniziale.
+
+Fare esempio del lucchetto per i numeri di tentativi possibili
+
+\section{Furti di identità}
+Le persone che non usano password robuste permettono a malintenzionati di
+porre in essere la seguente truffa: un giorno uno dei vostri amici, vi contatta
+da Facebook affermando di essere in viaggio all'estero e di esser rimasto senza
+denaro a causa di uno scippo. Vi chiederà di mandargli una ingente somma di
+soldi che gli permetteranno di poter tornare in Italia. In realtà il vostro
+amico non si è mai mosso, e la persona che vi sta scrivendo è un impostore
+che mira solamente a farsi dare i vostro soldi.
+Per non parlar poi dei rischi per chi subisce un furto di identità: potrebbe
+ritrovarsi intestati contratti per servizi mai richiesti, ammanchi nei conti
+bancari, ecc.
+
+\section{virus Zeus}
+Il virus Zeus è un virus che permette ad un malintenzionato di accedere al
+conto corrente della vittima anche in presenza di token hardware. Nel momento
+stesso che la persona sta inserendo il numero generato dal tuo token, il virus
+predispone un bonifico bancario che servirà a rubare il denaro.
+Non usate mai il cellulare per predisporre operazioni di internet banking.
+
+\section{Geolocalizzazione globale Google}
+I telefoni Android permettono la localizzazione della persona anche all'interno
+di edifici chiusi, e con estrema precisione. Ciò è possibile grazie
+all'interpolazione di dati provenienti da:
+\begin{itemize}
+ \item segnale GPS;
+ \item segnale antenna cellulari;
+ \item segnale Wi-Fi.
+\end{itemize}
+Dato che gli algoritmi di Google non sono pubblici, ho elaborato una mia teoria
+su come abbiano sviluppato una tecnologia del genere.
+Quando si è in esterno, il telefono associa le variazioni di potenza del
+segnale delle celle telefoniche ad una specifica area geografica grazie
+all'ausilio dell'antenna GPS. Quando il telefono si troverà privo della
+coperatura GPS (ad esempio in luoghi chiusi), sopperirà a tale mancanza
+confrontando la potenza delle celle telefoniche con il database memorizzato
+precedentemente. La stessa operazione si ripete utilizzando le reti Wi-Fi
+incontrate durante passaggio in aree coperte da segnale GPS.
+
+\section{protezione minori su internet}
+Dopo varie ricerche online, sono giunto alla conclusione che Kaspersky for kids
+sia la migliore scelta per chi volesse proteggere i propri figli dalle insidie
+della rete. Tale software, installato su dispositivi mobili, permette anche di
+monitorare i loro spostamenti in luoghi aperti. La presenza del software è
+volutamente non occultabile. Una volta installato si deve avere l'accortezza
+di configurarlo in maniera tale da renderlo non disinstallabile.
+
+\section{nei servizi online gratuiti, sei tu il prodotto}
+Google ha fondato GMail che forniva uno spazio di archiviazione di ~1 GB
+quando tutte le caselle di posta elettronica ne fornivano uno di pochi MB.
+Ora con Google Drive siamo giunti a spazi di 20 GB. Fornire una dimensione
+di archiviazione così grande per miliardi di utenti, con un così alto
+livello di ridondanza e tolleranza ai guasti, costa un mucchio di soldi.
+Dato che le società non sono onlus, loro ricavano i propri profitti rivendendo
+dati non aggregati circa usi ed abitudini dei propri clienti.
+
+\end{document}

@@ -1,0 +1,898 @@
+\documentclass[italian,aspectratio=169]{beamer}
+\usetheme{Warsaw}
+\usepackage[utf8]{inputenc}
+\usepackage{adjustbox} % serve per regolare automaticamente l'ampiezza delle tabelle
+\usepackage{algorithm,algpseudocode}
+\usepackage{default}
+\usepackage{verbatim}
+\usepackage{tikz}
+
+\author{Germano Massullo - germano.massullo@gmail.com}
+\date{}
+\title{Pillole di sicurezza informatica}
+
+\begin{document}
+\begin{frame}
+ \maketitle
+  \vspace{-2.5cm}
+   \begin{center}
+   \includegraphics{immagini/intro.jpg}
+   \end{center}
+\end{frame}
+
+\begin{frame}
+ \tableofcontents{}
+\end{frame}
+
+\section{Sicurezza dei dispositivi elettronici}
+\begin{frame}
+ \begin{center}
+  \huge Sicurezza dei dispositivi elettronici
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Integrità dei dati}
+ \begin{block}{Tempo medio tra i guasti}
+  Il tempo medio tra i guasti (in inglese mean time between failures,
+  spesso abbreviato in MTBF), è un parametro di affidabilità applicabile a
+  dispositivi meccanici, elettrici ed elettronici e ad applicazioni software.
+ \end{block}
+ \begin{center}
+   \includegraphics[scale=0.5]{immagini/bathtube_curve.jpg}
+ \end{center}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Integrità dei dati}
+ \begin{center}
+   \huge almeno due backup!
+ \end{center}
+ \begin{center}
+   \includegraphics[scale=0.2]{immagini/hard_drive.jpg}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Integrità dei dati}
+ \begin{center}
+   \huge No penne USB!
+ \end{center}
+ \begin{center}
+   \includegraphics[scale=0.2]{immagini/penna_usb.jpg}
+ \end{center}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Distruzione dati}
+   \vspace{-0.2cm}
+    \begin{center}
+     \includegraphics[scale=0.6]{immagini/distruzione_dati.jpg}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Distruzione dati}
+ \begin{itemize}
+  \item \textbf{Linux}: shred
+  \item \textbf{Mac OS}: srm
+  \item \textbf{Windows}: Free File Shredder
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{il mio computer è lento}
+ \begin{center}
+   \includegraphics[scale=0.15]{immagini/slow_computer.jpg}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Virus}
+  \begin{center}
+   \includegraphics[scale=0.15]{immagini/cavallo_troia.jpg}
+  \end{center}
+ 
+ I malware, virus non servono a distruggere il computer, bensì a sfruttarne le  risorse per scopi illeciti
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Processore computer (CPU)}
+ \begin{center}
+   \includegraphics[scale=0.27]{immagini/cpu-ryzen.jpg}
+  \end{center}
+\end{frame}
+
+{
+\usebackgroundtemplate{\centering\includegraphics[height=\paperheight]{immagini/mips.jpg}}
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain]
+\end{frame}
+}
+
+\begin{frame}
+ \frametitle{Attacchi buffer overflow}
+   \begin{center}
+   \includegraphics[scale=0.14]{immagini/stack_overflow.jpg}
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Attacchi buffer overflow}
+\begin{verbatim}
+
+ mele disponibili = 0
+ se (mele disponibili == 0)
+ {
+    compra delle mele
+    esci dal programma
+ }
+ altrimenti
+ {
+    mangia una mela
+    esci dal programma
+ }
+\end{verbatim}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Attacchi buffer overflow}
+ COSA IL COMPUTER HA IN MEMORIA
+ \begin{center}
+%\begin{adjustbox}{max width=\textwidth}
+ \begin{tabular}{|c|c|c|}
+\hline 
+{NUMERO RIGA} & {COMANDO} & {PROGRAM COUNTER}\tabularnewline
+{}&{}&{(riga seguente)}\tabularnewline
+\hline 
+\hline 
+{1} & {mele disponibili = 0} & {}\tabularnewline
+\hline
+{2} & {se (mele disponibili == 0)} & {}\tabularnewline
+\hline
+{3} & {compra delle mele} & {}\tabularnewline
+\hline
+{4} & {esci dal programma} & {}\tabularnewline
+\hline
+{5} & {altrimenti} & {}\tabularnewline
+\hline
+{6} & {mangia una mela} & {}\tabularnewline
+\hline
+{7} & {esci dal programma} & {}\tabularnewline
+\hline 
+\end{tabular}
+%\end{adjustbox}
+\end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Attacchi buffer overflow}
+ COSA IL COMPUTER HA IN MEMORIA
+ \begin{center}
+%\begin{adjustbox}{max width=\textwidth}
+ \begin{tabular}{|c|c|c|}
+\hline 
+{NUMERO RIGA} & {COMANDO} & {PROGRAM COUNTER}\tabularnewline
+{}&{}&{(riga seguente)}\tabularnewline
+\hline 
+\hline 
+{1} & {mele disponibili = 0} & {2}\tabularnewline
+\hline
+{2} & {se (mele disponibili == 0)} & {}\tabularnewline
+\hline
+{3} & {compra delle mele} & {}\tabularnewline
+\hline
+{4} & {esci dal programma} & {}\tabularnewline
+\hline
+{5} & {altrimenti} & {}\tabularnewline
+\hline
+{6} & {mangia una mela} & {}\tabularnewline
+\hline
+{7} & {esci dal programma} & {}\tabularnewline
+\hline 
+\end{tabular}
+%\end{adjustbox}
+\end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Attacchi buffer overflow}
+ COSA IL COMPUTER HA IN MEMORIA
+ \begin{center}
+%\begin{adjustbox}{max width=\textwidth}
+ \begin{tabular}{|c|c|c|}
+\hline 
+{NUMERO RIGA} & {COMANDO} & {PROGRAM COUNTER}\tabularnewline
+{}&{}&{(riga seguente)}\tabularnewline
+\hline 
+\hline 
+{1} & {mele disponibili = 0} & {2}\tabularnewline
+\hline
+{2} & {se (mele disponibili == 0)} & {3}\tabularnewline
+\hline
+{3} & {compra delle mele} & {}\tabularnewline
+\hline
+{4} & {esci dal programma} & {}\tabularnewline
+\hline
+{5} & {altrimenti} & {}\tabularnewline
+\hline
+{6} & {mangia una mela} & {}\tabularnewline
+\hline
+{7} & {esci dal programma} & {}\tabularnewline
+\hline 
+\end{tabular}
+%\end{adjustbox}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}
+ \frametitle{Attacchi buffer overflow}
+ COSA IL COMPUTER HA IN MEMORIA
+ \begin{center}
+%\begin{adjustbox}{max width=\textwidth}
+ \begin{tabular}{|c|c|c|}
+\hline 
+{NUMERO RIGA} & {COMANDO} & {PROGRAM COUNTER}\tabularnewline
+{}&{}&{(riga seguente)}\tabularnewline
+\hline 
+\hline 
+{1} & {mele disponibili = 0} & {2}\tabularnewline
+\hline
+{2} & {se (mele disponibili == 0)} & {3}\tabularnewline
+\hline
+{3} & {compra delle mele} & {4}\tabularnewline
+\hline
+{4} & {esci dal programma} & {}\tabularnewline
+\hline
+{5} & {altrimenti} & {}\tabularnewline
+\hline
+{6} & {mangia una mela} & {}\tabularnewline
+\hline
+{7} & {esci dal programma} & {}\tabularnewline
+\hline 
+\end{tabular}
+%\end{adjustbox}
+\end{center}
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}
+ \frametitle{Attacchi buffer overflow}
+ COSA IL COMPUTER HA IN MEMORIA
+ \begin{center}
+%\begin{adjustbox}{max width=\textwidth}
+ \begin{tabular}{|c|c|c|}
+\hline 
+{NUMERO RIGA} & {COMANDO} & {PROGRAM COUNTER}\tabularnewline
+{}&{}&{(riga seguente)}\tabularnewline
+\hline 
+\hline 
+{1} & {mele disponibili = 0} & {2}\tabularnewline
+\hline
+{2} & {se (mele disponibili == 0)} & {3}\tabularnewline
+\hline
+{3} & {compra delle mele} & {4}\tabularnewline
+\hline
+{4} & {esci dal programma} & {FINE}\tabularnewline
+\hline
+{5} & {altrimenti} & {}\tabularnewline
+\hline
+{6} & {mangia una mela} & {}\tabularnewline
+\hline
+{7} & {esci dal programma} & {}\tabularnewline
+\hline 
+\end{tabular}
+%\end{adjustbox}
+\end{center}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}[fragile]
+ \frametitle{Attacchi buffer overflow}
+\begin{verbatim}
+
+ mele disponibili = 1  // CAMBIATO
+ se (mele disponibili == 0)
+ {
+    compra delle mele
+    esci dal programma
+ }
+ altrimenti
+ {
+    mangia una mela
+    esci dal programma
+ }
+\end{verbatim}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Attacchi buffer overflow}
+ COSA IL COMPUTER HA IN MEMORIA
+ \begin{center}
+%\begin{adjustbox}{max width=\textwidth}
+ \begin{tabular}{|c|c|c|}
+\hline 
+{NUMERO RIGA} & {COMANDO} & {PROGRAM COUNTER}\tabularnewline
+{}&{}&{(riga seguente)}\tabularnewline
+\hline 
+\hline 
+{1} & {mele disponibili = 1} & {}\tabularnewline
+\hline
+{2} & {se (mele disponibili == 0)} & {}\tabularnewline
+\hline
+{3} & {compra delle mele} & {}\tabularnewline
+\hline
+{4} & {esci dal programma} & {}\tabularnewline
+\hline
+{5} & {altrimenti} & {}\tabularnewline
+\hline
+{6} & {mangia una mela} & {}\tabularnewline
+\hline
+{7} & {esci dal programma} & {}\tabularnewline
+\hline 
+\end{tabular}
+%\end{adjustbox}
+\end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Attacchi buffer overflow}
+ COSA IL COMPUTER HA IN MEMORIA
+ \begin{center}
+%\begin{adjustbox}{max width=\textwidth}
+ \begin{tabular}{|c|c|c|}
+\hline 
+{NUMERO RIGA} & {COMANDO} & {PROGRAM COUNTER}\tabularnewline
+{}&{}&{(riga seguente)}\tabularnewline
+\hline 
+\hline 
+{1} & {mele disponibili = 1} & {2}\tabularnewline
+\hline
+{2} & {se (mele disponibili == 0)} & {}\tabularnewline
+\hline
+{3} & {compra delle mele} & {}\tabularnewline
+\hline
+{4} & {esci dal programma} & {}\tabularnewline
+\hline
+{5} & {altrimenti} & {}\tabularnewline
+\hline
+{6} & {mangia una mela} & {}\tabularnewline
+\hline
+{7} & {esci dal programma} & {}\tabularnewline
+\hline 
+\end{tabular}
+%\end{adjustbox}
+\end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Attacchi buffer overflow}
+ COSA IL COMPUTER HA IN MEMORIA
+ \begin{center}
+%\begin{adjustbox}{max width=\textwidth}
+ \begin{tabular}{|c|c|c|}
+\hline 
+{NUMERO RIGA} & {COMANDO} & {PROGRAM COUNTER}\tabularnewline
+{}&{}&{(riga seguente)}\tabularnewline
+\hline 
+\hline 
+{1} & {mele disponibili = 1} & {2}\tabularnewline
+\hline
+{2} & {se (mele disponibili == 0)} & {5}\tabularnewline
+\hline
+{3} & {compra delle mele} & {}\tabularnewline
+\hline
+{4} & {esci dal programma} & {}\tabularnewline
+\hline
+{5} & {altrimenti} & {}\tabularnewline
+\hline
+{6} & {mangia una mela} & {}\tabularnewline
+\hline
+{7} & {esci dal programma} & {}\tabularnewline
+\hline 
+\end{tabular}
+%\end{adjustbox}
+\end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Attacchi buffer overflow}
+ COSA IL COMPUTER HA IN MEMORIA
+ \begin{center}
+%\begin{adjustbox}{max width=\textwidth}
+ \begin{tabular}{|c|c|c|}
+\hline 
+{NUMERO RIGA} & {COMANDO} & {PROGRAM COUNTER}\tabularnewline
+{}&{}&{(riga seguente)}\tabularnewline
+\hline 
+\hline 
+{1} & {mele disponibili = 1} & {2}\tabularnewline
+\hline
+{2} & {se (mele disponibili == 0)} & {5}\tabularnewline
+\hline
+{3} & {compra delle mele} & {}\tabularnewline
+\hline
+{4} & {esci dal programma} & {}\tabularnewline
+\hline
+{5} & {altrimenti} & {6}\tabularnewline
+\hline
+{6} & {mangia una mela} & {}\tabularnewline
+\hline
+{7} & {esci dal programma} & {}\tabularnewline
+\hline 
+\end{tabular}
+%\end{adjustbox}
+\end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Attacchi buffer overflow}
+ COSA IL COMPUTER HA IN MEMORIA
+ \begin{center}
+%\begin{adjustbox}{max width=\textwidth}
+ \begin{tabular}{|c|c|c|}
+\hline 
+{NUMERO RIGA} & {COMANDO} & {PROGRAM COUNTER}\tabularnewline
+{}&{}&{(riga seguente)}\tabularnewline
+\hline 
+\hline 
+{1} & {mele disponibili = 1} & {2}\tabularnewline
+\hline
+{2} & {se (mele disponibili == 0)} & {5}\tabularnewline
+\hline
+{3} & {compra delle mele} & {}\tabularnewline
+\hline
+{4} & {esci dal programma} & {}\tabularnewline
+\hline
+{5} & {altrimenti} & {6}\tabularnewline
+\hline
+{6} & {mangia una mela} & {7}\tabularnewline
+\hline
+{7} & {esci dal programma} & {}\tabularnewline
+\hline 
+\end{tabular}
+%\end{adjustbox}
+\end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Attacchi buffer overflow}
+ COSA IL COMPUTER HA IN MEMORIA
+ \begin{center}
+%\begin{adjustbox}{max width=\textwidth}
+ \begin{tabular}{|c|c|c|}
+\hline 
+{NUMERO RIGA} & {COMANDO} & {PROGRAM COUNTER}\tabularnewline
+{}&{}&{(riga seguente)}\tabularnewline
+\hline 
+\hline 
+{1} & {mele disponibili = 1} & {2}\tabularnewline
+\hline
+{2} & {se (mele disponibili == 0)} & {5}\tabularnewline
+\hline
+{3} & {compra delle mele} & {}\tabularnewline
+\hline
+{4} & {esci dal programma} & {}\tabularnewline
+\hline
+{5} & {altrimenti} & {6}\tabularnewline
+\hline
+{6} & {mangia una mela} & {7}\tabularnewline
+\hline
+{7} & {esci dal programma} & {FINE}\tabularnewline
+\hline 
+\end{tabular}
+%\end{adjustbox}
+\end{center}
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+\begin{frame}[fragile]
+ \frametitle{Attacchi buffer overflow}
+\begin{verbatim}
+
+ mele disponibili = 2342343453453453454568  
+ se (mele disponibili == 0)
+ {
+    compra delle mele
+    esci dal programma
+ }
+ altrimenti
+ {
+    mangia una mela
+    esci dal programma
+ }
+ DISTRUGGI SISTEMA
+\end{verbatim}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Attacchi buffer overflow}
+ COSA IL COMPUTER HA IN MEMORIA
+ \begin{center}
+%\begin{adjustbox}{max width=\textwidth}
+ \begin{tabular}{|c|c|c|}
+\hline 
+{NUMERO RIGA} & {COMANDO} & {PROGRAM COUNTER}\tabularnewline
+{}&{}&{(riga seguente)}\tabularnewline
+\hline 
+\hline 
+{1} & {mele disponibili = 234234345345345345456} & {8}\tabularnewline
+\hline
+{2} & {se (mele disponibili == 0)} & {}\tabularnewline
+\hline
+{3} & {compra delle mele} & {}\tabularnewline
+\hline
+{4} & {esci dal programma} & {}\tabularnewline
+\hline
+{5} & {altrimenti} & {}\tabularnewline
+\hline
+{6} & {mangia una mela} & {}\tabularnewline
+\hline
+{7} & {esci dal programma} & {}\tabularnewline
+\hline
+{8} & {DISTRUGGI SISTEMA} & {}\tabularnewline
+\hline
+\end{tabular}
+%\end{adjustbox}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Attacchi buffer overflow}
+ COSA IL COMPUTER HA IN MEMORIA
+ \begin{center}
+%\begin{adjustbox}{max width=\textwidth}
+ \begin{tabular}{|c|c|c|}
+\hline 
+{NUMERO RIGA} & {COMANDO} & {PROGRAM COUNTER}\tabularnewline
+{}&{}&{(riga seguente)}\tabularnewline
+\hline 
+\hline 
+{1} & {mele disponibili = 234234345345345345456} & {8}\tabularnewline
+\hline
+{2} & {se (mele disponibili == 0)} & {}\tabularnewline
+\hline
+{3} & {compra delle mele} & {}\tabularnewline
+\hline
+{4} & {esci dal programma} & {}\tabularnewline
+\hline
+{5} & {altrimenti} & {}\tabularnewline
+\hline
+{6} & {mangia una mela} & {}\tabularnewline
+\hline
+{7} & {esci dal programma} & {}\tabularnewline
+\hline
+{8} & {DISTRUGGI SISTEMA} & {FINE}\tabularnewline
+\hline
+\end{tabular}
+%\end{adjustbox}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Wi-Fi e smart home}
+ \begin{center}
+    \includegraphics[scale=0.18]{immagini/homelynx.jpg}
+ \end{center}
+\end{frame}
+
+
+{
+\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{immagini/kismet.png}}
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain]
+\end{frame}
+}
+
+
+
+\begin{frame}
+ \frametitle{Smart tv}
+  \begin{center}
+   \includegraphics[scale=0.3]{immagini/smart_tv.jpg}
+  \end{center}
+\end{frame}
+
+
+
+
+\section{Sicurezza nell'uso di internet}
+\begin{frame}
+ \begin{center}
+  \huge Sicurezza nell'uso di internet
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Crittografia asimmetrica}
+ Nasce dall'esigenza di trasportare dati protetti e la chiave di decodifica
+ su un canale di comunicazione non sicuro.
+   \begin{center}
+   \includegraphics[scale=0.16]{immagini/crittografia.jpg}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Crittografia asimmetrica}
+ \huge Ogni persona possiede:
+ %\begin{center}
+ \begin{itemize}
+  \item una chiave \textbf{privata};
+  \item una chiave \textbf{pubblica}.
+ \end{itemize} 
+ %\end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Crittografia asimmetrica}
+\begin{adjustbox}{max width=\textwidth}
+ \begin{tabular}{|c|c|c|c|c|c|}
+\hline 
+{TIPO} & {CODIFICA} & {DECODIFICA} & {FIRMA} & {VERIFICA} & {NOTE}\tabularnewline
+{CHIAVE}&{MESSAGGI}&{MESSAGGI}&{MESSAGGI}&{FIRMA MITTENTE}&{}\tabularnewline
+\hline 
+\hline 
+{Privata} & {} & {X} & {X} & {} & {Genera la} chiave pubblica\tabularnewline
+{} & {} & {} & {} & {} & {chiave pubblica}\tabularnewline
+\hline 
+{Pubblica} & {X} & {} & {} & {X} & {Viene firmata da}\tabularnewline
+{} & {} & {} & {} & {} & {altri utenti o da un'autorità} \tabularnewline
+\hline 
+\end{tabular}
+\end{adjustbox}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Gestione password}
+ \centering \huge KeepassXC
+  \begin{center}
+   \includegraphics[scale=2]{immagini/keepassxc.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Generazione password}
+ \begin{block}{Creare una password robusta}
+  Si può partire da lettere di ogni parola di una frase
+ \end{block}
+ \pause
+ nel mezzo del cammin di nostra vita mi ritrovai in una selva oscura, che la retta via
+ era smarrita
+\end{frame}
+
+\begin{frame}
+ \frametitle{Generazione password}
+ \begin{block}{Creare una password robusta}
+  Si può partire da lettere di ogni parola di una frase
+ \end{block}
+ \textbf{n}el \textbf{m}ezzo \textbf{d}el \textbf{c}ammin \textbf{d}i \textbf{n}ostra
+ \textbf{v}ita \textbf{m}i \textbf{r}itrovai \textbf{i}n \textbf{u}na \textbf{s}elva
+ \textbf{o}scura, \textbf{c}he \textbf{l}a \textbf{r}etta \textbf{v}ia \textbf{e}ra \textbf{s}marrita
+ \begin{center}
+  \huge Quindi: nmdcdnvmriusoclrves 
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Crack password}
+ \begin{block}{Possibili combinazioni}
+   \begin{equation*}
+   10x10x10x10x10=10^{5}
+   \end{equation*}
+ \end{block}
+  \begin{block}{Tempo per violazione}
+  Assumendo un computer che faccia 1000 tentativi al secondo
+   \begin{equation*}
+   \frac{100.000\;combinazioni\;possibili}{1000\;tentativi/secondo}=100\;secondi
+   \end{equation*}
+ \end{block}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Furti di identità}
+ \vspace{-0.5cm}
+ \begin{center}
+  \includegraphics[scale=0.2]{immagini/amici.jpg}
+ \end{center}
+
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Virus Zeus + furti carte di credito}
+   \begin{center}
+   \includegraphics[scale=0.2]{immagini/soldi.jpg}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Virus Zeus + furti carte di credito}
+   \begin{center}
+    \includegraphics[scale=2]{immagini/mobile-banking.jpg}
+   \end{center}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Protezione minori su internet}
+  \begin{center}
+   \includegraphics[scale=0.3]{immagini/Kaspersky-Safe-Kids.jpg}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Protezione minori su internet}
+  \begin{center}
+   \includegraphics[scale=0.3]{immagini/Kaspersky-safe-kids-localizzazione.jpeg}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Protezione minori su internet}
+  \begin{center}
+   \includegraphics[scale=0.3]{immagini/Kaspersky-safe-kids-amministrazione.jpeg}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Protezione minori su internet}
+  \begin{center}
+   \includegraphics[scale=0.3]{immagini/Kaspersky-safe-kids-amministrazione-2.jpeg}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Nei servizi online gratuiti, sei tu il prodotto}
+ \vspace{-0.4cm}
+   \begin{center}
+   \includegraphics[scale=0.09]{immagini/supermarket.jpg}
+ \end{center}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Geolocalizzazione globale Google}
+ \begin{center}
+  \includegraphics[scale=0.2]{immagini/map-celle.jpg}
+ \end{center}
+\end{frame}
+
+{
+\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{immagini/map-gps-celle.jpg}}
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain]
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{immagini/map-celle.jpg}}
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain]
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{immagini/map-celle-wifi_grande.jpg}}
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain]
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{immagini/map-interni.jpg}}
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain]
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{immagini/nsa-1.jpg}}
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain]
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{immagini/nsa-2.jpg}}
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain]
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{immagini/nsa-3.jpg}}
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain]
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{immagini/nsa-4.jpg}}
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain]
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{immagini/nsa-5.jpg}}
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain]
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{immagini/nsa-utah.jpg}}
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain]
+\end{frame}
+}
+
+{
+\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{immagini/nsa-utah-vista-aerea.jpg}}
+\setbeamertemplate{navigation symbols}{}
+\begin{frame}[plain]
+\end{frame}
+}
+
+\begin{frame}
+ \frametitle{Internet... è per sempre}
+  \begin{center}
+   \includegraphics[scale=0.3]{immagini/nsa-utah-vista-aerea.jpg}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Internet... è per sempre}
+ \begin{block}{Centro di stoccaggio dati National Security Agency (Utah, USA)}
+  Lo Utah Data Center, noto anche come Intelligence Community Comprehensive
+  National Cybersecurity Initiative Data Center, è un impianto di stoccaggio
+  di dati per la United States Intelligence Community, progettato per
+  memorizzare dati nell'ordine degli exabyte.
+ \end{block}
+
+  \begin{center}
+   \includegraphics[scale=0.2]{immagini/nsa-utah-vista-aerea.jpg}
+ \end{center}
+\end{frame}
+
+\end{document}
+
+% SICUREZZA DISPOSITIVI ELETTRONICI
+% 
+
+% SICUREZZA NELL'UTILIZZO DI INTERNET
+% delinquenti privi di capacità informatiche potrebbero pagare qualcuno per svolgere attività illecite
+% facebook like buttons
